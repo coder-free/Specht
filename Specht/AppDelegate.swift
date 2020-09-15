@@ -9,15 +9,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     var pendingAction = 0
 
     var configFolder: String {
-        let path = (NSHomeDirectory() as NSString).stringByAppendingPathComponent(".Specht")
+        let path = (NSHomeDirectory() as NSString).appendingPathComponent(".Specht")
         var isDir: ObjCBool = false
-        let exist = NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir)
-        if exist && !isDir {
-            try! NSFileManager.defaultManager().removeItemAtPath(path)
-            try! NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        let exist = FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
+        if exist && !isDir.boolValue {
+            try! FileManager.default.removeItem(atPath: path)
+            try! FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
         if !exist {
-            try! NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+            try! FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
         return path
     }
@@ -30,12 +30,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
 
-    func initManagerMap(completionHandler: () -> ()) {
+    func initManagerMap(completionHandler: @escaping () -> ()) {
         managerMap = [:]
 
-        NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler { managers, error in
+        NETunnelProviderManager.loadAllFromPreferences { managers, error in
             guard managers != nil else {
-                self.alertError("Failed to load VPN settings from preferences. \(error)")
+                self.alertError(errorDescription: "Failed to load VPN settings from preferences. \(String(describing: error))")
                 return
             }
 
@@ -48,68 +48,68 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func initMenuBar() {
-        barItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
+        barItem = NSStatusBar.system.statusItem(withLength: -1)
         barItem.title = "Sp"
         barItem.menu = NSMenu()
         barItem.menu!.delegate = self
     }
 
     func registerObserver() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.statusDidChange(_:)), name: NEVPNStatusDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.configurationDidChange(_:)), name: NEVPNConfigurationChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.statusDidChange(notification:)), name: NSNotification.Name.NEVPNStatusDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.configurationDidChange(notification:)), name: NSNotification.Name.NEVPNConfigurationChange, object: nil)
     }
 
-    func statusDidChange(notification: NSNotification) {
+    @objc func statusDidChange(notification: NSNotification) {
     }
 
-    func configurationDidChange(notification: NSNotification) {
+    @objc func configurationDidChange(notification: NSNotification) {
     }
 
-    func startConfiguration(sender: NSMenuItem) {
+    @objc func startConfiguration(sender: NSMenuItem) {
         let manager = managerMap[sender.title]!
         do {
             switch manager.connection.status {
-            case .Disconnected:
+            case .disconnected:
 //                disconnect()
-                try (manager.connection as! NETunnelProviderSession).startTunnelWithOptions([:])
-            case .Connected, .Connecting, .Reasserting:
+                try (manager.connection as! NETunnelProviderSession).startTunnel(options: [:])
+            case .connected, .connecting, .reasserting:
                 (manager.connection as! NETunnelProviderSession).stopTunnel()
             default:
                 break
             }
         } catch let error {
-            alertError("Failed to start VPN \(sender.title) due to: \(error)")
+            alertError(errorDescription: "Failed to start VPN \(sender.title) due to: \(error)")
         }
     }
 
-    func menuNeedsUpdate(menu: NSMenu) {
+    func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
 
         let disableNonConnected = findConnectedManager() != nil
         for manager in managerMap.values {
-            let item = buildMenuItemForManager(manager, disableNonConnected: disableNonConnected)
+            let item = buildMenuItemForManager(manager: manager, disableNonConnected: disableNonConnected)
             menu.addItem(item)
         }
 
-        menu.addItem(NSMenuItem.separatorItem())
-        menu.addItemWithTitle("Disconnect", action: #selector(AppDelegate.disconnect(_:)), keyEquivalent: "d")
-        menu.addItemWithTitle("Open config folder", action: #selector(AppDelegate.openConfigFolder(_:)), keyEquivalent: "c")
-        menu.addItemWithTitle("Reload config", action: #selector(AppDelegate.reloadClicked(_:)), keyEquivalent: "r")
-        menu.addItem(NSMenuItem.separatorItem())
-        menu.addItemWithTitle("Exit", action: #selector(AppDelegate.terminate(_:)), keyEquivalent: "q")
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(withTitle: "Disconnect", action: #selector(AppDelegate.disconnect(sender:)), keyEquivalent: "d")
+        menu.addItem(withTitle: "Open config folder", action: #selector(AppDelegate.openConfigFolder(sender:)), keyEquivalent: "c")
+        menu.addItem(withTitle: "Reload config", action: #selector(AppDelegate.reloadClicked(sender:)), keyEquivalent: "r")
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(withTitle: "Exit", action: #selector(AppDelegate.terminate(sender:)), keyEquivalent: "q")
     }
 
-    func openConfigFolder(sender: AnyObject) {
-        NSWorkspace.sharedWorkspace().openFile(configFolder)
+    @objc func openConfigFolder(sender: AnyObject) {
+        NSWorkspace.shared.openFile(configFolder)
     }
 
-    func reloadClicked(sender: AnyObject) {
+    @objc func reloadClicked(sender: AnyObject) {
         reloadAllConfigurationFiles()
     }
 
     func reloadAllConfigurationFiles(completionHandler: (() -> ())? = nil) {
         VPNManager.removeAllManagers {
-            VPNManager.loadAllConfigFiles(self.configFolder) {
+            VPNManager.loadAllConfigFiles(configFolder: self.configFolder) {
                 self.initManagerMap() {
                     completionHandler?()
                 }
@@ -117,10 +117,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
     }
 
-    func disconnect(sender: AnyObject? = nil) {
+    @objc func disconnect(sender: AnyObject? = nil) {
         for manager in managerMap.values {
             switch manager.connection.status {
-            case .Connected, .Connecting:
+            case .connected, .connecting:
                 (manager.connection as! NETunnelProviderSession).stopTunnel()
             default:
                 break
@@ -131,7 +131,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func findConnectedManager() -> NETunnelProviderManager? {
         for manager in managerMap.values {
             switch manager.connection.status {
-            case .Connected, .Connecting, .Reasserting, .Disconnecting:
+            case .connected, .connecting, .reasserting, .disconnecting:
                 return manager
             default:
                 break
@@ -141,26 +141,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func buildMenuItemForManager(manager: NETunnelProviderManager, disableNonConnected: Bool) -> NSMenuItem {
-        let item = NSMenuItem(title: manager.localizedDescription!, action: #selector(AppDelegate.startConfiguration(_:)), keyEquivalent: "")
+        let item = NSMenuItem(title: manager.localizedDescription!, action: #selector(AppDelegate.startConfiguration(sender:)), keyEquivalent: "")
 
         switch manager.connection.status {
-        case .Connected:
-            item.state = NSOnState
-        case .Connecting:
-            item.title = item.title.stringByAppendingString("(Connecting)")
-        case .Disconnecting:
-            item.title = item.title.stringByAppendingString("(Disconnecting)")
-        case .Reasserting:
-            item.title = item.title.stringByAppendingString("(Reconnecting)")
-        case .Disconnected:
+        case .connected:
+            item.state = NSControl.StateValue.on
+        case .connecting:
+            item.title = item.title.appending("(Connecting)")
+        case .disconnecting:
+            item.title = item.title.appending("(Disconnecting)")
+        case .reasserting:
+            item.title = item.title.appending("(Reconnecting)")
+        case .disconnected:
             break
-        case .Invalid:
-            item.title = item.title.stringByAppendingString("(----)")
+        case .invalid:
+            item.title = item.title.appending("(----)")
+        @unknown default:
+            break
         }
 
         if disableNonConnected {
             switch manager.connection.status {
-            case .Disconnected, .Invalid:
+            case .disconnected, .invalid:
                 item.action = nil
             default:
                 break
@@ -176,10 +178,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    func terminate(sender: AnyObject) {
+    @objc func terminate(sender: AnyObject) {
         NSApp.terminate(self)
     }
 

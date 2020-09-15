@@ -5,13 +5,13 @@ import NEKit
 class VPNManager {
     static var pendingAction: Int = 0
     static var appDelegate: AppDelegate {
-        return NSApplication.sharedApplication().delegate! as! AppDelegate
+        return NSApplication.shared.delegate! as! AppDelegate
     }
 
-    static func removeAllManagers(completionHandler: () -> ()) {
-        NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler { managers, error in
+    static func removeAllManagers(completionHandler: @escaping () -> ()) {
+        NETunnelProviderManager.loadAllFromPreferences { managers, error in
             guard let managers = managers else {
-                appDelegate.alertError("Failed to load VPN settings from preferences due to \(error)")
+                appDelegate.alertError(errorDescription: "Failed to load VPN settings from preferences due to \(String(describing: error))")
                 return
             }
 
@@ -23,9 +23,9 @@ class VPNManager {
             }
 
             for manager in managers {
-                manager.removeFromPreferencesWithCompletionHandler { error in
+                manager.removeFromPreferences { error in
                     if error != nil {
-                        appDelegate.alertError("Failed to remove VPN settings from preferences due to \(error)")
+                        appDelegate.alertError(errorDescription: "Failed to remove VPN settings from preferences due to \(String(describing: error))")
                     }
 
                     pendingAction -= 1
@@ -37,36 +37,36 @@ class VPNManager {
         }
     }
 
-    static func loadConfigFile(path: String, completionHandler: () -> ()) {
+    static func loadConfigFile(path: String, completionHandler: @escaping () -> ()) {
         let configuration = NETunnelProviderProtocol()
         configuration.providerConfiguration = ["configFileURL": path]
 
         do {
-            let content = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+            let content = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
             let config = Configuration()
             try config.load(fromConfigString: content)
             configuration.providerConfiguration!["config"] = content
-            configuration.providerConfiguration!["hash"] = MD5.string(content)
+            configuration.providerConfiguration!["hash"] = MD5.string(s: content)
         } catch let error {
-            appDelegate.alertError("Error when loading config file: \(path). \(error)")
+            appDelegate.alertError(errorDescription: "Error when loading config file: \(path). \(error)")
             completionHandler()
             return
         }
 
-        let name = ((path as NSString).lastPathComponent as NSString).stringByDeletingPathExtension
+        let name = ((path as NSString).lastPathComponent as NSString).deletingPathExtension
 
         let manager = NETunnelProviderManager()
         manager.localizedDescription = name
         configuration.providerBundleIdentifier = "me.zhuhaow.osx.Specht.SpechtTunnelPacketProvider"
         configuration.serverAddress = "127.0.0.1"
         manager.protocolConfiguration = configuration
-        manager.saveToPreferencesWithCompletionHandler { _ in
+        manager.saveToPreferences { (error) in
             completionHandler()
         }
     }
 
-    static func loadAllConfigFiles(configFolder: String, completionHandler: () -> ()) {
-        let paths = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(configFolder).filter {
+    static func loadAllConfigFiles(configFolder: String, completionHandler: @escaping () -> ()) {
+        let paths = try! FileManager.default.contentsOfDirectory(atPath: configFolder).filter {
             ($0 as NSString).pathExtension == "yaml"
         }
 
@@ -78,7 +78,7 @@ class VPNManager {
         }
 
         for path in paths {
-            loadConfigFile((configFolder as NSString).stringByAppendingPathComponent(path)) {
+            loadConfigFile(path: (configFolder as NSString).appendingPathComponent(path)) {
                 pendingAction -= 1
                 if pendingAction == 0 {
                     completionHandler()

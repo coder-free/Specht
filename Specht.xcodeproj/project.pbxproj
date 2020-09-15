@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D571B142510679A008209E6 /* NEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A719481D5B539B00DC35F5 /* NEKit.framework */; };
+		2D571B19251067DB008209E6 /* Resolver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D571B17251067D8008209E6 /* Resolver.framework */; };
+		2D571B1A251067DB008209E6 /* Resolver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D571B17251067D8008209E6 /* Resolver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		360B584E1CE810910018784F /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 360B584C1CE810870018784F /* NetworkExtension.framework */; };
 		36164A561CE71F3F00BAC90A /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DCE5D31CA6972400C61029 /* CommonCrypto.framework */; };
 		36164A5C1CE71F4000BAC90A /* MMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36164A581CE71F4000BAC90A /* MMDB.framework */; };
@@ -33,11 +36,9 @@
 		36A7194E1D5B539B00DC35F5 /* tun2socks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A719491D5B539B00DC35F5 /* tun2socks.framework */; };
 		36A7194F1D5B539B00DC35F5 /* tun2socks.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36A719491D5B539B00DC35F5 /* tun2socks.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36A719501D5B53A500DC35F5 /* lwip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A719471D5B539B00DC35F5 /* lwip.framework */; };
-		36A719511D5B53A500DC35F5 /* NEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A719481D5B539B00DC35F5 /* NEKit.framework */; };
 		36A719521D5B53A500DC35F5 /* tun2socks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A719491D5B539B00DC35F5 /* tun2socks.framework */; };
 		36B366701D56C658003343AA /* VPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3666F1D56C658003343AA /* VPNManager.swift */; };
 		36B366741D56CB33003343AA /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B366731D56CB33003343AA /* MD5.swift */; };
-		36C3D42A1D6C114F003069F0 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 36C3D4291D6C114F003069F0 /* README.md */; };
 		36DD363A1CE7366500537ACA /* MMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36164A581CE71F4000BAC90A /* MMDB.framework */; };
 		36DD363B1CE7366500537ACA /* MMDB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36164A581CE71F4000BAC90A /* MMDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36DD363C1CE7366500537ACA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36164A591CE71F4000BAC90A /* Sodium.framework */; };
@@ -76,6 +77,7 @@
 				36A7194F1D5B539B00DC35F5 /* tun2socks.framework in Embed Frameworks */,
 				36A7194B1D5B539B00DC35F5 /* lwip.framework in Embed Frameworks */,
 				362A54F51C9D05780056B653 /* CocoaLumberjackSwift.framework in Embed Frameworks */,
+				2D571B1A251067DB008209E6 /* Resolver.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D571B17251067D8008209E6 /* Resolver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Resolver.framework; path = Carthage/Build/Mac/Resolver.framework; sourceTree = "<group>"; };
 		360B584C1CE810870018784F /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		36164A581CE71F4000BAC90A /* MMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMDB.framework; path = Carthage/Build/Mac/MMDB.framework; sourceTree = "<group>"; };
 		36164A591CE71F4000BAC90A /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/Mac/Sodium.framework; sourceTree = "<group>"; };
@@ -141,6 +144,7 @@
 				36A7194C1D5B539B00DC35F5 /* NEKit.framework in Frameworks */,
 				36DD363E1CE7366500537ACA /* Yaml.framework in Frameworks */,
 				36DD363A1CE7366500537ACA /* MMDB.framework in Frameworks */,
+				2D571B19251067DB008209E6 /* Resolver.framework in Frameworks */,
 				36E44A2C1CF2FE3900185DBF /* NetworkExtension.framework in Frameworks */,
 				36DD36441CE7366500537ACA /* CommonCrypto.framework in Frameworks */,
 				362A54F11C9D056F0056B653 /* CocoaLumberjackSwift.framework in Frameworks */,
@@ -160,7 +164,7 @@
 				3643CE251CC28467005A9C4B /* CocoaLumberjackSwift.framework in Frameworks */,
 				36164A561CE71F3F00BAC90A /* CommonCrypto.framework in Frameworks */,
 				36A719501D5B53A500DC35F5 /* lwip.framework in Frameworks */,
-				36A719511D5B53A500DC35F5 /* NEKit.framework in Frameworks */,
+				2D571B142510679A008209E6 /* NEKit.framework in Frameworks */,
 				36A719521D5B53A500DC35F5 /* tun2socks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,6 +251,7 @@
 		36A719531D5B543700DC35F5 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				2D571B17251067D8008209E6 /* Resolver.framework */,
 				36A719471D5B539B00DC35F5 /* lwip.framework */,
 				36A719481D5B539B00DC35F5 /* NEKit.framework */,
 				36A719491D5B539B00DC35F5 /* tun2socks.framework */,
@@ -309,13 +314,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Zhuhao Wang";
 				TargetAttributes = {
 					362A543B1C9BD5E00056B653 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = H5443445N6;
+						DevelopmentTeam = 2EZTLCQS99;
+						LastSwiftMigration = 1160;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -326,8 +339,12 @@
 					};
 					3643CE131CC283BD005A9C4B = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = H5443445N6;
+						DevelopmentTeam = 2EZTLCQS99;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -340,7 +357,7 @@
 			};
 			buildConfigurationList = 362A54371C9BD5E00056B653 /* Build configuration list for PBXProject "Specht" */;
 			compatibilityVersion = "Xcode 6.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -391,7 +408,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36C3D42A1D6C114F003069F0 /* README.md in Sources */,
 				3643CE191CC283BD005A9C4B /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,17 +446,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -474,17 +501,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -503,47 +541,55 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
 		362A54601C9BD5E10056B653 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Specht/Specht.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 2EZTLCQS99;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/NEKit/tun2socks/build/Debug",
 				);
 				INFOPLIST_FILE = Specht/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.zhuhaow.osx.Specht;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xl.me.zhuhaow.osx.Specht;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "30fcd81f-15a5-40a5-ada9-8d27995effd5";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		362A54611C9BD5E10056B653 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Specht/Specht.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 2EZTLCQS99;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/NEKit/tun2socks/build/Debug",
 				);
 				INFOPLIST_FILE = Specht/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.zhuhaow.osx.Specht;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xl.me.zhuhaow.osx.Specht;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -553,7 +599,10 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SpechtTunnelPacketProvider/SpechtTunnelPacketProvider.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2EZTLCQS99;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -561,11 +610,12 @@
 				INFOPLIST_FILE = SpechtTunnelPacketProvider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = me.zhuhaow.osx.Specht.SpechtTunnelPacketProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xl.me.zhuhaow.osx.Specht.SpechtTunnelPacketProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "25a846a7-bdf1-45a4-a355-81653d0b718b";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -575,7 +625,10 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SpechtTunnelPacketProvider/SpechtTunnelPacketProvider.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2EZTLCQS99;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -583,10 +636,12 @@
 				INFOPLIST_FILE = SpechtTunnelPacketProvider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = me.zhuhaow.osx.Specht.SpechtTunnelPacketProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xl.me.zhuhaow.osx.Specht.SpechtTunnelPacketProvider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
